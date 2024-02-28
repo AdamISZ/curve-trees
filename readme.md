@@ -1,25 +1,8 @@
 # Curve Trees
 
-This is a benchmarking implementation of [Curve Trees](https://eprint.iacr.org/2022/756). It is not for production purposes.
+This is a fork of [Curve Trees benchmarking implementation](https://github.com/simonkamp/curve-trees). Read there for details.
 
-This repository contains:
-- A modified version of [dalek bulletproofs](https://github.com/dalek/bulletproofs), 
-which is adapted to support any curve implemented using the [arkworks algebra library](https://github.com/arkworks-rs/algebra)
-in addition to batch verification and vector commitments (see [Generalized Bulletproofs](./bulletproofs/generalized-bulletproofs.md)).
-- Bulletproof constraints to show that a commitment is a rerandomization of a member of the set represented by a curve tree. I.e. the select and rerandomize relation.
-- Benchmarks of the VCash anonymous payment system.
-- Benchmarks of an accumulator based on opening a commitment extracted using the select and rerandomize relation.
+Currently the only change applied here is to make the universal hash function use static constants, instead of generating the parameters (alpha and beta) randomly, allowing reconstruction of the Tree by more than one participant from the same set. (For context, the UH is used as a transformation applied to each point, such that the point compression tiebreaker (i.e. which y-coord to use for the given serialized x-coord) can be calculated easily inside the circuit.
 
-## Running Benchmarks
+TODO: may need to look into how null values at the leaf level are initialized into the tree to avoid forgery being possible.
 
-To replicate the benchmarks in the [Curve Trees](https://eprint.iacr.org/2022/756) paper run: `cargo bench --features bench_prover`.
-
-To get single core benchmarks disable default features: `cargo bench --features bench_prover --no-default-features`.
-
-## Acknowledgements
-
-The bulletproofs implementation is based on [dalek bulletproofs](https://github.com/dalek/bulletproofs) and the [arkworks algebra library](https://github.com/arkworks-rs/algebra).
-
-## LICENSE
-
-This code is released under the MIT License.

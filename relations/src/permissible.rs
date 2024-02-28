@@ -18,8 +18,12 @@ pub struct UniversalHash<F: Field> {
 impl<F: Field> UniversalHash<F> {
     pub fn new<R: Rng>(rng: &mut R, a: F, b: F) -> Self {
         Self {
-            alpha: F::rand(rng),
-            beta: F::rand(rng),
+            // using constants (arbitrary) for the parameters
+            // of the UH, to allow deterministic reproduction
+            // of the same tree.
+            // TODO: remove rng argument.
+            alpha: F::try_from(42u64).unwrap(),
+           beta: F::try_from(690u64).unwrap(),
             a,
             b,
         }
