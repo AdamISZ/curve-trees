@@ -209,6 +209,12 @@ impl<
         }
     }
 
+    pub fn root_node(&self) -> Affine<P0> {
+        match self {
+            Self::Even(ct) => ct.parent_commitment,
+            Self::Odd(_ct) => {panic!("Odd roots not yet supported.")}
+        }
+    }
     //todo add a function to add a single/several commitments
 }
 
