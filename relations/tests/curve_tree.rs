@@ -26,18 +26,17 @@ use ark_secq256k1::Config as SecqConfig;
 
 #[test]
 pub fn test_curve_tree_even_depth() {
-    test_curve_tree_with_parameters::<32, PallasBase, PallasConfig, VestaConfig>(4, 11);
-    test_curve_tree_with_parameters::<32, SecpBase, SecpConfig, SecqConfig>(4, 11);
+    test_curve_tree_with_parameters::<PallasBase, PallasConfig, VestaConfig>(4, 11);
+    test_curve_tree_with_parameters::<SecpBase, SecpConfig, SecqConfig>(4, 11);
 }
 
 #[test]
 pub fn test_curve_tree_odd_depth() {
-    test_curve_tree_with_parameters::<32, PallasBase, PallasConfig, VestaConfig>(3, 11);
-    test_curve_tree_with_parameters::<32, SecpBase, SecpConfig, SecqConfig>(3, 11);
+    test_curve_tree_with_parameters::<PallasBase, PallasConfig, VestaConfig>(3, 11);
+    test_curve_tree_with_parameters::<SecpBase, SecpConfig, SecqConfig>(3, 11);
 }
 
 pub fn test_curve_tree_with_parameters<
-    const L: usize,
     F: PrimeField,
     P0: SWCurveConfig<BaseField = F> + Copy,
     P1: SWCurveConfig<BaseField = P0::ScalarField, ScalarField = P0::BaseField> + Copy,
@@ -65,7 +64,7 @@ pub fn test_curve_tree_with_parameters<
         .uh
         .permissible_commitment(&some_point, &sr_params.even_parameters.pc_gens.B_blinding);
     let set = vec![permissible_point];
-    let curve_tree = CurveTree::<L, P0, P1>::from_set(&set, &sr_params, Some(depth));
+    let curve_tree = CurveTree::<P0, P1>::from_set(&set, &sr_params, Some(depth));
     assert_eq!(curve_tree.height(), depth);
 
     let (path_commitments, _) = curve_tree.select_and_rerandomize_prover_gadget(
@@ -128,7 +127,7 @@ pub fn test_curve_tree_batch_verification() {
         .permissible_commitment(&some_point, &sr_params.even_parameters.pc_gens.B_blinding);
     let set = vec![permissible_point];
     let curve_tree =
-        CurveTree::<32, PallasParameters, VestaParameters>::from_set(&set, &sr_params, Some(4));
+        CurveTree::<PallasParameters, VestaParameters>::from_set(&set, &sr_params, Some(4));
     assert_eq!(curve_tree.height(), 4);
 
     let pallas_transcript = Transcript::new(b"select_and_rerandomize");

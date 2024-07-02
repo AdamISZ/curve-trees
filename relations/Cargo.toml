@@ -36,17 +36,7 @@ table2 = ["usenix"]
 table3 = ["usenix"]
 all-tables = ["table1", "table2", "table3"]
 
-[[bench]]
-name = "select_rerandomize"
-harness = false
 
-[[bench]]
-name = "coin"
-harness = false
-
-[[bench]]
-name = "accumulator"
-harness = false
 
 [profile.release]
 lto = true
