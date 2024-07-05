@@ -12,7 +12,7 @@ use merlin::Transcript;
 use rand::Rng;
 use std::{borrow::BorrowMut, ops::Mul};
 
-pub const L: usize = 256;
+pub const L: usize = 1024;
 
 pub enum CurveTree<P0: SWCurveConfig, P1: SWCurveConfig> {
     Even(CurveTreeNode<P0, P1>),
