@@ -17,6 +17,7 @@ use rand::Rng;
 use std::iter;
 use std::marker::PhantomData;
 
+#[derive(Clone)]
 pub struct SingleLayerParameters<P: SWCurveConfig + Copy> {
     pub bp_gens: BulletproofGens<Affine<P>>,
     pub pc_gens: PedersenGens<Affine<P>>,

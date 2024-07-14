@@ -14,6 +14,7 @@ use std::{borrow::BorrowMut, ops::Mul};
 
 pub const L: usize = 1024;
 
+#[derive(Clone)]
 pub enum CurveTree<P0: SWCurveConfig, P1: SWCurveConfig> {
     Even(CurveTreeNode<P0, P1>),
     Odd(CurveTreeNode<P1, P0>),
@@ -697,6 +698,7 @@ impl<
     }
 }
 
+#[derive(Clone)]
 pub struct SelRerandParameters<P0: SWCurveConfig + Copy, P1: SWCurveConfig + Copy> {
     pub even_parameters: SingleLayerParameters<P0>,
     pub odd_parameters: SingleLayerParameters<P1>,
